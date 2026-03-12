@@ -1,4 +1,4 @@
-# AAF Q1 Experiment Pipeline
+# AAF Experiment Pipeline
 
 This repository provides an **end-to-end, reproducible** experiment pipeline for the paper:
 
@@ -7,7 +7,7 @@ This repository provides an **end-to-end, reproducible** experiment pipeline for
 It includes:
 
 - **Resource-sharing game** environment (paper §7.1 style).
-- Optional **Public-goods** environment (second domain) for stronger Q1 evaluation.
+- Optional **Public-goods** environment (second domain) for evaluation.
 - **Multi-agent parameter-sharing PPO** baseline (PPO-only).
 - **Static guard** baseline (action restriction).
 - **Constrained PPO** baseline (Lagrangian constraint on norm violations).
@@ -155,10 +155,7 @@ python -m scripts.aggregate --root out/grid_q1_deep
 
 - **macOS / Apple Silicon:** for large grids, prefer `--device cpu`.
   - The environment loop is NumPy/CPU, and some distribution samplers can fall back from MPS.
-  - If you insist on MPS, this repo includes an MPS-friendly Beta sampler to avoid Dirichlet fallback warnings.
-- **Avoid cloud-synced output folders** for large grids (Google Drive / Dropbox / iCloud). Use a local scratch path.
-- If results look inconsistent, ensure you are not mixing output folders from different code versions.
-- If results look inconsistent, ensure you are not mixing output folders from different code versions.
+
 - For reproducibility, every run stores `config.json` and the seed.
 
 ---
