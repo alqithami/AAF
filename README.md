@@ -1,5 +1,7 @@
 # Adaptive Accountability Framework (AAF)
 
+<img width="3172" height="1350" alt="banner_aaf" src="https://github.com/user-attachments/assets/415d72f9-e731-4786-b899-d02e8c717b65" />
+
 This repository provides a **reproducible experiment pipeline** for evaluating the **Adaptive Accountability Framework (AAF)** in networked multi-agent systems.
 
 It is designed for *paper-grade* empirical evaluation:
