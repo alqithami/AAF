@@ -1,0 +1,38 @@
+env: resource_sharing
+baseline: aaf_full
+n_agents: 50
+t_steps: 1000
+seed: 0
+device: auto
+
+byzantine_frac: 0.05
+byzantine_start: 200
+
+penalty_factor: 0.2
+dist_alpha: 1.0
+partial_obs: false
+
+env_kwargs:
+  r_max: 100.0
+  q_max: 100.0
+  penalty_factor: 0.2
+  dist_alpha: 1.0
+  partial_obs: false
+
+ppo_kwargs:
+  hidden_sizes: [128, 128]
+  lr: 0.0003
+  rollout_len: 128
+  n_epochs: 4
+  batch_size: 1024
+
+aaf_kwargs:
+  monitored_stat: greedy
+  resp_window: 50
+  cusum_alpha: 0.05
+  cusum_delta: 0.01
+  cusum_h0: 5.0
+  cusum_warmup: 100
+  horizon: 50
+  lambda_penalty: 0.2
+  top_k: 3
