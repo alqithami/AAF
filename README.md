@@ -341,4 +341,4 @@ If you use this codebase, please cite the associated AAF paper (add/update BibTe
 
 ## License
 
-Research code, provided as-is. Add an explicit OSS license (MIT/Apache-2.0/etc.) if you plan to distribute or accept external contributions.
+This repository is released under the **MIT License**. See `LICENSE`.
