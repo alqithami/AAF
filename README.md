@@ -1,4 +1,7 @@
 # Adaptive Accountability Framework (AAF)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![arXiv](https://img.shields.io/badge/arXiv-2512.18561-b31b1b.svg)](https://arxiv.org/abs/2512.18561)
 
 <img width="3172" height="1350" alt="banner_aaf" src="https://github.com/user-attachments/assets/415d72f9-e731-4786-b899-d02e8c717b65" />
 
