@@ -1,0 +1,7 @@
+Highlights
+
+- Separates evidence integrity, telemetry authenticity, and enforcement authority
+- Governs proprietary black-box agents through an external execution gateway
+- Uses coverage-aware operational attribution with abstention, not causal overclaiming
+- States guarantees under explicit delivery and intervention-effect assumptions
+- Audits 19,440 effective main-grid runs and a separate 900-run scaling sweep

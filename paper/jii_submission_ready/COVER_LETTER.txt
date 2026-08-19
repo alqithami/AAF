@@ -1,0 +1,18 @@
+August 19, 2026
+
+Dr. Yu Zhao
+Managing Editor
+Journal of Information and Intelligence
+
+Re: Major revision of manuscript InteCom-D-26-00100
+
+Dear Dr. Zhao,
+
+Thank you for the opportunity to revise "Adaptive Accountability in Networked MAS: Tracing and Mitigating Emergent Norms at Scale" (InteCom-D-26-00100). I respectfully resubmit the manuscript after a comprehensive response to the two reviewers and a source, code, data, mathematical, and visual audit.
+
+The revision separates evidence integrity, telemetry authenticity, and intervention authority; introduces a black-box-compatible execution gateway; corrects the theoretical and resource-accounting arguments; re-audits the archived experiment units; and adds targeted mechanism-level stress tests for the vulnerabilities identified by Reviewer 2. The clean manuscript, changes-highlighted manuscript, point-by-point response, title page, and separate highlights file accompany the revision.
+
+The journal manuscript is not under consideration elsewhere. The related AIES 2025 paper and arXiv preprint are disclosed on the editor-only title page, and the journal article is a substantial extension and correction. The author declares no competing interests and no specific research funding. The manuscript includes the required declaration of generative-AI assistance, and the author takes full responsibility for its contents.
+
+Sincerely,
+Saad Alqithami, Ph.D.
