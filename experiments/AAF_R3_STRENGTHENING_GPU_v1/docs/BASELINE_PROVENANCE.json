@@ -1,0 +1,21 @@
+{
+  "source_archive": "AAF_R3_NEXT_STAGE_RESULTS.zip",
+  "archive_sha256": "4e72b668f481781d379aaaa17f578d68ec1fd7b04f1c49474405b97e0d6bed2d",
+  "inherited_files_byte_identical": [
+    "vendor/aaf_r3/__init__.py",
+    "vendor/aaf_r3/analysis.py",
+    "vendor/aaf_r3/cli.py",
+    "vendor/aaf_r3/common.py",
+    "vendor/aaf_r3/game_runner.py",
+    "vendor/aaf_r3/games.py",
+    "vendor/aaf_r3/governor.py",
+    "vendor/aaf_r3/network.py",
+    "vendor/aaf_r3/physics.py",
+    "vendor/aaf_r3/plots.py",
+    "vendor/aaf_r3/ppo.py"
+  ],
+  "local_vendor_manifest_sha256": "25242c9f99e5987bcaafeabd919404ee2ed7676ed9eafd7da8b23636742747ae",
+  "related_completed_paper_archive_sha256": "81b651c6daa1b3c6a4068c63d9259c74bcb73583e4b710d46d4bb739f4e0707e",
+  "changes": "Separate aaf_strengthen package only. No changes to original AAF experiments, figure assets or manuscript.",
+  "status": "Development diagnostic; not committed to GitHub in this delivery."
+}

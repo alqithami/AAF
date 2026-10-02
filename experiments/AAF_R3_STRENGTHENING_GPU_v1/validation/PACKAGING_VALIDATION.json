@@ -1,0 +1,8 @@
+{
+  "game_smoke_result_archive_crc": "PASS",
+  "game_smoke_result_files_sha256_verified": 15,
+  "restored_source_package_checksums": "PASS",
+  "restored_source_cli_plan": "PASS",
+  "checkpoint_binaries_in_return_export": true,
+  "scope": "Engineering game smoke. No VMAS/CUDA outcome claimed."
+}

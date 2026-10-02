@@ -1,0 +1,76 @@
+% Proposed strengthening-stage text. NOT automatically included in main.tex.
+% No new empirical claim is made by this file.
+\section{Diagnosing the Opportunity for Selective Intervention}
+
+An authority-limited controller should not be assessed solely by the number of
+agents or treatments. The evaluation must establish whether the permitted controls
+can materially alter harm, and whether evidence-informed selection can improve upon
+uninformed allocation under those same limits. We separate fixed-proposal
+accounting, diagnostic control opportunity, and prospective closed-loop evaluation.
+
+\paragraph{Fixed-proposal accounting.}
+For a recorded sequence of per-agent attempted violation indicators
+$v_{i,t}\in\{0,1\}$, assume a deterministic gateway can eliminate that declared
+per-agent violation when agent $i$ is selected, without changing other agents'
+recorded proposals. For disjoint, prespecified intervention windows $W_j$, let
+$b_{j,i}=\sum_{t\in W_j}v_{i,t}$. If precisely $k$ of $N$ agents are selected in
+each window, the largest direct reduction on this fixed record is
+\[
+ G^*_{\mathrm{record}}=\frac{1}{NT}\sum_j
+          \sum_{i\in\operatorname{Top}_k(b_j)} b_{j,i}.
+\]
+Uniform random selection has expected direct reduction
+\[
+ \mathbb E[G_{\mathrm{random}}\mid(v_{i,t})]
+ =\frac{1}{NT}\sum_j\frac{k}{N}\sum_i b_{j,i}.
+\]
+Their difference quantifies the available selection opportunity for this record
+and schedule. When all agents have identical window violation counts, this
+difference is zero: even hindsight selection cannot improve on uniform selection
+on the recorded per-agent endpoint. Unequal counts create potential opportunity,
+not a guarantee that a causal online ranker can exploit it.
+
+\paragraph{Proof and scope.}
+Each window's reduction is additive over selected agents, so selecting its $k$
+largest counts maximizes that window's reduction. Disjoint windows permit summing
+these maxima. Each identity has inclusion probability $k/N$ under a uniform subset,
+which gives the random-selection expectation by linearity, without independence
+between agents. The result is a hindsight diagnostic, not an implementable
+forecaster, not an optimum over intervention schedules, and not a bound on changes
+to future learning or physical joint events. All direct reductions are bounded by
+realized authorized agent-time on the same record. The earlier long-run authority
+bound therefore remains relevant, but cannot establish that a particular controller
+allocates its authority optimally.
+
+\paragraph{Independent service utility.}
+For the original saturated resource-sharing setting, averaging
+$r_i=x_i-0.2v_i+0.3\bar x$ over $N=50$ agents with total allocation $100$ gives
+$\bar r=2.6-0.2\bar v$. Its reward improvement is not an independent measure of
+legitimate demand satisfaction or throughput. Those service claims require
+separately specified task measures; they are not inferred from this identity.
+
+\paragraph{Timing and predictive-control diagnostics.}
+The new development instrumentation records the complete sequence from observed
+risk through alarm, admission, command modification, and contact. An alarm at the
+end of step $t$ normally authorizes an intervention at $t+1$. The separately named
+zero-delay state-model diagnostic acts before the current transition and changes
+several information/timing assumptions together; it is not a clean single-factor
+ablation. Missing events remain absent/censored rather than being assigned zero
+latency. Whole-episode contact incidence is retained alongside prospectively
+specified timing and duration summaries.
+
+A candidate predictive primitive evaluates bounded commands using an eight-step
+constant-command, contact-free dynamics approximation with the same actuator lag.
+All compared triggers and selectors share that primitive within its block. A
+state-model benefit score estimates single-target reduction of that model's risk;
+it neither observes future simulator states nor establishes causal culpability.
+A reduction of model cost is not empirical evidence of certified physical safety.
+One-step free-motion agreement and realized prediction errors are exported to expose
+where the approximation holds and fails.
+
+\paragraph{Development versus confirmation.}
+These diagnostics retain all development seeds and conditions. They do not supply
+confirmatory significance or select a favorable result for the manuscript. A future
+confirmation must freeze the chosen method, comparable calibration opportunities,
+authority constraints, task requirements and primary contrasts before new independent
+policy seeds are evaluated. Existing null and unfavorable results remain preserved.

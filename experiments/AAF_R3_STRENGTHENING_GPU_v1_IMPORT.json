@@ -1,0 +1,23 @@
+{
+  "source_archive": "AAF_R3_STRENGTHENING_GPU_v1.zip",
+  "source_archive_sha256": "f511ef4eca7bc897261101f3ab27ee5cd7c18263820dfb78ddbc3b80bca53d66",
+  "repository_path": "experiments/AAF_R3_STRENGTHENING_GPU_v1",
+  "source_file_count": 50,
+  "source_bytes": 203387,
+  "package_git_tree_sha": "673f926d44edbff9324dde7bf0d1fa6493d6c194",
+  "sha256_ledger_entries": 49,
+  "package_files_byte_identical_to_archive": true,
+  "publication_status": "Development diagnostic code; not new confirmatory results or a submission-ready manuscript",
+  "import_base_commit": "a7fb5c0a2a2a55ef823658d7786389fd5337b264",
+  "import_branch": "revision/jii-major-revision-redline",
+  "preservation": "Only a new experiments subtree is added. All pre-existing repository entries and main remain unchanged.",
+  "local_import_test_run": {
+    "passed": 61,
+    "skipped": 4,
+    "failures": 0,
+    "skip_reason": "VMAS not installed locally",
+    "cuda_executed": false,
+    "scientific_experiments_launched_on_server": false
+  },
+  "original_provenance_note": "Preparation-time non-commit status inside the immutable ZIP is retained; the import record describes its subsequent publication."
+}
