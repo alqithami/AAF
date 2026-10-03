@@ -1,0 +1,71 @@
+{
+  "profile": "diagnostic",
+  "navigation_evaluations": 164,
+  "policy_seeds": [
+    281000,
+    281001
+  ],
+  "navigation_episode_records": 1312,
+  "game_plan": {
+    "profile": "diagnostic",
+    "seeds": [
+      281100,
+      281101
+    ],
+    "domains": [
+      "resource_sharing",
+      "public_goods"
+    ],
+    "n_agents": 50,
+    "burnin_steps": 6024,
+    "calibration_steps": 512,
+    "steps": 2000,
+    "attack_start": 400,
+    "budgets": [
+      3,
+      10,
+      25
+    ],
+    "streams": [
+      "frozen_ppo_replay",
+      "scripted_sparse",
+      "scripted_rotating",
+      "scripted_diffuse"
+    ],
+    "selectors": [
+      "random",
+      "recent_score",
+      "current_violation",
+      "future_window_diagnostic"
+    ]
+  },
+  "first_navigation_config": {
+    "profile": "diagnostic",
+    "n_agents": 4,
+    "train_worlds": 16,
+    "train_updates": 128,
+    "rollout": 128,
+    "horizon": 256,
+    "calibration_steps": 512,
+    "eval_worlds": 8,
+    "attack_start": 32,
+    "prediction_horizon": 8,
+    "prediction_margin": 0.05,
+    "seed": 281000,
+    "attack": "none",
+    "method": "adaptive_rank",
+    "filter": "brake",
+    "evidence": "gateway",
+    "block": "authority",
+    "authority": {
+      "top_k": 1,
+      "horizon": 10,
+      "window": 60,
+      "tokens": 4,
+      "cooldown": 5,
+      "history": 20,
+      "minimum_coverage": 0.5,
+      "shaping": 0.2
+    }
+  }
+}

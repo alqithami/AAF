@@ -1,0 +1,186 @@
+{
+  "version": "AAF-R3-strengthening-confirmation-v1",
+  "status": "Frozen after inspection of development seeds; not externally registered.",
+  "baseline_results_sha256": "0792a061bf92c5523ac2f57d64758e824ee3c82b66c6806e3c8e7c7f04c64a5e",
+  "navigation_seeds": [
+    291000,
+    291001,
+    291002,
+    291003,
+    291004,
+    291005,
+    291006,
+    291007,
+    291008,
+    291009,
+    291010,
+    291011,
+    291012,
+    291013,
+    291014,
+    291015,
+    291016,
+    291017,
+    291018,
+    291019
+  ],
+  "game_seeds": [
+    291100,
+    291101,
+    291102,
+    291103,
+    291104,
+    291105,
+    291106,
+    291107,
+    291108,
+    291109,
+    291110,
+    291111,
+    291112,
+    291113,
+    291114,
+    291115,
+    291116,
+    291117,
+    291118,
+    291119
+  ],
+  "navigation_eval_worlds": 32,
+  "navigation_configurations_per_seed": 82,
+  "navigation_evaluations": 1640,
+  "navigation_episode_records": 52480,
+  "game_replay_comparisons": 1920,
+  "base_changes": "No algorithm, simulator, attack, calibration, schedule, or threshold edits. Change only profile metadata, seeds, and navigation evaluation batch size.",
+  "primary_family": "30 exact two-sided paired sign tests: 6 games and 24 navigation, jointly Holm-adjusted.",
+  "primary_game": {
+    "streams": [
+      "frozen_ppo_replay"
+    ],
+    "domains": [
+      "resource_sharing",
+      "public_goods"
+    ],
+    "top_k": [
+      3,
+      10,
+      25
+    ],
+    "left": "recent_score",
+    "right": "random",
+    "metric": "direct_reduction",
+    "direction": "higher is better"
+  },
+  "primary_navigation": {
+    "attack": "pursuit",
+    "top_k": 1,
+    "metrics": [
+      "any_contact",
+      "contact_time",
+      "goal_progress",
+      "modified_fraction"
+    ],
+    "contrasts": [
+      {
+        "name": "shared_predictor",
+        "left": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "gateway"
+        },
+        "right": {
+          "method": "adaptive_rank",
+          "filter": "brake",
+          "evidence": "gateway"
+        }
+      },
+      {
+        "name": "evidence_ranking",
+        "left": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "gateway"
+        },
+        "right": {
+          "method": "adaptive_random",
+          "filter": "predictive",
+          "evidence": "gateway"
+        }
+      },
+      {
+        "name": "adaptive_vs_threshold",
+        "left": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "gateway"
+        },
+        "right": {
+          "method": "threshold_rank",
+          "filter": "predictive",
+          "evidence": "gateway"
+        }
+      },
+      {
+        "name": "adaptive_vs_periodic",
+        "left": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "gateway"
+        },
+        "right": {
+          "method": "periodic_rank",
+          "filter": "predictive",
+          "evidence": "gateway"
+        }
+      },
+      {
+        "name": "visible_omission_control",
+        "left": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "selective_gapaware"
+        },
+        "right": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "selective_naive"
+        }
+      },
+      {
+        "name": "gateway_vs_forgery",
+        "left": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "gateway"
+        },
+        "right": {
+          "method": "adaptive_rank",
+          "filter": "predictive",
+          "evidence": "forged_self_report"
+        }
+      }
+    ]
+  },
+  "inference": {
+    "unit": "Independent policy-training seed; episodes averaged within seed; domains analyzed separately.",
+    "primary_test": "Exact two-sided binomial sign test on nonzero paired seed differences. Null: positive/negative signs equiprobable conditional on non-ties. Not a test specifically of the population mean.",
+    "ties": "Numerically zero differences within 1e-12 absolute are ties; count reported; all ties gives p=1.",
+    "effect": "Mean paired difference, reported separately from the sign-test hypothesis.",
+    "bootstrap": "10000 paired seed resamples, fixed per-contrast RNG; percentile 95% marginal intervals, not simultaneous intervals.",
+    "multiplicity": "Holm across all 30 primary p-values, including all-tie tests.",
+    "exclusions": "None based on policy competence, outcome, contact, significance or runtime. Failures are fixed/restarted, not removed.",
+    "secondary": "All other conditions and timing endpoints retained descriptively, no automatic new confirmatory claims.",
+    "noninferiority": "No non-inferiority/equivalence/optimal-frontier/universal-safety claim."
+  },
+  "review_export": "All summaries/episodes and policy weights, all game proposal streams, and the first evaluation-world full trace from EVERY navigation configuration (fixed index 0, not selected by outcome). Full traces retained in server results. Server validates every full trace before export.",
+  "dependencies": {
+    "torch": "2.10.0+cu128",
+    "vmas": "1.5.2",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pandas": "2.2.3",
+    "gym": "0.26.2",
+    "pytest": "8.4.2",
+    "matplotlib": "3.10.3"
+  }
+}

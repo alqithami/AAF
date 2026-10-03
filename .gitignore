@@ -1,0 +1,22 @@
+# Local environments, run outputs, and caches; existing historical files are preserved.
+.venv*/
+.runtime/
+results/
+outputs/
+out/
+logs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+RUN.*
+*.lock
+*.tmp
+*.zip
+*.pt
+*.pth
+*.npz
+# Editorial documents do not belong in the code release.
+/manuscript/
+/editor_only/
+/response/

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite this software and the exact Git commit used for reproduction."
+type: software
+title: "Adaptive Accountability Framework: Reproducibility Code"
+authors:
+  - family-names: Alqithami
+    given-names: Saad
+version: "jii-confirmation-code-1.0.0"
+date-released: 2026-10-03
+repository-code: "https://github.com/alqithami/AAF"
+license: MIT
+abstract: >-
+  Versioned simulation, intervention, evidence-fault, and analysis code for
+  corrected online-learning studies and held-out runtime-accountability
+  confirmation. This software record does not assert a journal acceptance,
+  a data deposit, or certified physical safety.

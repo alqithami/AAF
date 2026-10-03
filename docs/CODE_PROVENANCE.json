@@ -1,0 +1,24 @@
+{
+  "version": "jii-confirmation-code-1.0.0",
+  "date": "2026-10-03",
+  "historical_main": "ade2b8508b8b4f6cb528b35c04bf739e35a36e24",
+  "development_commit": "d227b2f095d56082d8dd58872a908279f46e81b7",
+  "development_package_tree": "673f926d44edbff9324dde7bf0d1fa6493d6c194",
+  "confirmation_public_packaging_changes": [
+    "RUN_COMMANDS.md: replace private host/transfer instructions with portable guide",
+    "PACKAGE_SHA256SUMS.txt: checksum for that guide"
+  ],
+  "numerical_confirmation_code_and_protocol_unchanged": true,
+  "base_files_byte_identical": 50,
+  "source_archives": {
+    "AAF_R3_STRENGTHENING_GPU_v1.zip": "f511ef4eca7bc897261101f3ab27ee5cd7c18263820dfb78ddbc3b80bca53d66",
+    "AAF_R3_STRENGTHENING_CONFIRM_v1.zip": "b51064d3157838be24b5f28d3075f7ba999155ae8c56f8c15987e187ad13180b",
+    "AAF_R3_experiments.zip": "cb4fe3dff47a13afa65cd5dd73dd5beafecf8383bbd87c95e1844fc68129b803",
+    "AAF_R3_CONFIRMATION_INTEGRATED.zip": "3e391b0b786f2886df81514e8bcd55d2beb89fc1dfed6c84e308d5e107d9911a"
+  },
+  "standalone_files": {
+    "tools/audit_historical_results.py": "1a4e3162234e381d11901816430e5683df2172ba329077a12b2119f3c4309714",
+    "experiments/mechanism_tests/run_targeted_robustness.py": "5ca961a3cb1967933088aac11b4958cd6c209964499c4db33377741b709132a2"
+  },
+  "scope": "Code-only publication. No new manuscript, author/reviewer document, raw experiment dataset, policy checkpoint, or physical trace is included. Existing revision branch is unchanged."
+}

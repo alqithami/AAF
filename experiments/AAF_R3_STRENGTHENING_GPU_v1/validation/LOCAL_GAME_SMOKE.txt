@@ -1,0 +1,8 @@
+PLAN: 0 navigation evaluations; games replay=True; DEVELOPMENT ONLY
+GAME REPLAY development: resource_sharing, seed=271100
+GAME REPLAY development: public_goods, seed=271100
+Finished development run. Analyze and return; do not launch a main study.
+Analysis complete: /mnt/data/aaf_strengthening_work/final_release_smoke/analysis/DIAGNOSTIC_REPORT.md
+PLAN: 0 navigation evaluations; games replay=True; DEVELOPMENT ONLY
+REUSE complete game diagnostic
+Finished development run. Analyze and return; do not launch a main study.

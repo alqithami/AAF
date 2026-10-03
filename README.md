@@ -1,347 +1,80 @@
 # Adaptive Accountability Framework (AAF)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![Python 3.11–3.12](https://img.shields.io/badge/python-3.11%E2%80%933.12-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 [![arXiv](https://img.shields.io/badge/arXiv-2512.18561-b31b1b.svg)](https://arxiv.org/abs/2512.18561)
 
 <img width="3172" height="1350" alt="banner_aaf" src="https://github.com/user-attachments/assets/415d72f9-e731-4786-b899-d02e8c717b65" />
 
-This repository provides a **reproducible experiment pipeline** for evaluating the **Adaptive Accountability Framework (AAF)** in networked multi-agent systems.
+**Code, fixed protocols, tests, and analysis for reproducible runtime-accountability experiments.** AAF separates evidence integrity, telemetry authenticity, and enforceable intervention authority. The executable studies combine sequential detection, recent-evidence ranking, bounded control, and simulated evidence failures.
 
-It is designed for *paper-grade* empirical evaluation:
+The banner above is retained from the original repository as an architectural overview, not a claim that every conceptual service is implemented. The evaluated ranker uses recent violation evidence, not SHAP or a causal graph. Signatures, trusted hardware, and a production replicated ledger are not implemented as an integrated security stack.
 
-- Two benchmark environments: `resource_sharing`, `public_goods`
-- AAF variants (full + ablations) and strong baselines (PPO + fairness/constraint variants)
-- Large, resumable sweeps with sharding (local multiprocess or multi-node)
-- Aggregation + paired significance tests
-- Paper-ready LaTeX tables and figures
+## Start here
 
----
+| Code path | Study and correct interpretation |
+|---|---|
+| [`experiments/AAF_R3_CORRECTED_v1`](experiments/AAF_R3_CORRECTED_v1) | Proposal-consistent online-learning comparisons: 840 game treatments, 240 separate legacy-update diagnostics, and the initial ten-policy navigation study. |
+| [`experiments/AAF_R3_STRENGTHENING_CONFIRM_v1`](experiments/AAF_R3_STRENGTHENING_CONFIRM_v1) | Held-out confirmation: 20 navigation policies, 1,640 evaluations, and 1,920 fixed-proposal game comparisons using 20 policies per domain. |
+| [`experiments/AAF_R3_STRENGTHENING_GPU_v1`](experiments/AAF_R3_STRENGTHENING_GPU_v1) | Earlier two-policy development diagnostics. Do not pool these with confirmation. |
+| [`experiments/mechanism_tests`](experiments/mechanism_tests) | Separate telemetry, omission, alert-flood, policy-depth, and predictive-screening stress tests. |
+| `aaf_q1/`, `scripts/`, `configs/`, `slurm/` | Preserved historical implementation. Its action/log-probability mismatch and archive multiplicities preclude treating its results as corrected-PPO confirmation. |
 
-## What you get
+The root `requirements.txt` belongs to the historical runner; use the versioned setup instructions below for the current studies. Original package notes describe their pre-execution stage and are retained for provenance.
 
-### Methods / baselines
+The current source release is **`jii-confirmation-code-1.0.0`**. This is a code-version label, not a journal acceptance statement. Cite the full Git commit SHA for an exact, immutable snapshot. The repository does not include the new manuscript, title page, cover letter, or reviewer letters.
 
-- `ppo_only` — parameter-sharing PPO (no accountability)
-- `static_guard` — fixed rule-based guardrail
-- `constrained_ppo` — PPO with constraint-style penalty handling
-- `fair_ppo` — PPO with fairness-aware shaping
-
-AAF variants:
-
-- `aaf_full` — full AAF pipeline (detector + attribution + intervention)
-- `aaf_detector_only`
-- `aaf_shaping_only`
-- `aaf_patch_only`
-- `aaf_no_attrib`
-
-### Key metrics (written to `summary.json` per run)
-
-- compromise ratios (attempted + executed)
-- social welfare
-- allocation/reward inequality (Gini)
-- alarms count and detection delay
-- attribution quality (top-1 / recall@k)
-- bandwidth + runtime
-
----
-
-## Installation
-
-### 1) Create a clean environment
+## Quick verification — no experiment launched
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -U pip
-pip install -r requirements.txt
+git clone https://github.com/alqithami/AAF.git
+cd AAF
+python3 tools/verify_release.py
 ```
 
-### 2) Device selection (CPU / Apple MPS / CUDA)
+For publication reproduction, check out the exact commit cited by the article before verifying. The original README is preserved in [`docs/LEGACY_README.md`](docs/LEGACY_README.md); its commands and claims concern only the historical implementation.
 
-The runner supports `--device {auto,cpu,mps,cuda}`.
+## Environment and tests
 
-- **Apple Silicon (M1–M4):**
-  - For *single runs*, `--device mps` is fine.
-  - For *large sweeps*, `--device cpu` is often **more stable** (the env loop is mostly NumPy/CPU; some PyTorch ops may fall back).
-  - This repo includes an MPS-friendly Beta sampler to avoid the common `Dirichlet` fallback warnings during PPO action sampling.
-
-- **NVIDIA GPUs (Linux/cluster):**
-  - Install a CUDA-enabled PyTorch build.
-  - Use `--device cuda` (or `--device auto`).
-  - For GPU runs, set `--jobs 1` (one process should own the GPU).
-
----
-
-## Quickstart
-
-### A) Run a single experiment (sanity check)
+Use Linux and Python 3.11 or 3.12. Setup creates a dedicated environment; it never replaces a GPU driver or an unrelated environment.
 
 ```bash
-python -m scripts.run_single \
-  --env resource_sharing \
-  --baseline aaf_full \
-  --n_agents 50 \
-  --penalty_factor 0.20 \
-  --dist_alpha 1.0 \
-  --partial_obs off \
-  --t_steps 1000 \
-  --seed 0 \
-  --device auto \
-  --out out/run_single_aaf
+bash tools/setup_environment.sh cpu
+source .venv-aaf-cpu/bin/activate
+bash tools/run_confirmation.sh test
 ```
 
-You will get:
-
-- `out/run_single_aaf/<timestamp_baseline_hash>/summary.json`
-- optional `step_logs.csv` / `agent_logs.csv` depending on `--log_mode`
-
-### B) Run a sweep end-to-end (grid → runs → aggregate → paper assets)
-
-1) Generate a grid (JSONL)
+For the frozen GPU confirmation, install its CUDA build instead:
 
 ```bash
-python -m scripts.make_grid --preset q1_main --out configs/grid_q1_main.jsonl
+bash tools/setup_environment.sh cuda
+source .venv-aaf-cuda/bin/activate
+bash tools/run_confirmation.sh plan
 ```
 
-2) Execute the grid
+The confirmation requires PyTorch `2.10.0+cu128`, VMAS `1.5.2`, and the versions in its [`CONFIRM_PROTOCOL.json`](experiments/AAF_R3_STRENGTHENING_CONFIRM_v1/CONFIRM_PROTOCOL.json). CPU checks are not a substitute for actual CUDA/VMAS preflight. Original machine-specific launchers remain for provenance; use the portable `tools/` entry points on other machines.
+
+## Reproduce the held-out confirmation
+
+**This is a substantial GPU study, not a quick demo.** Use persistent storage, one GPU process, and an output directory separate from earlier runs. The default is `results/confirmation` under this checkout.
 
 ```bash
-python -m scripts.run_grid \
-  --grid configs/grid_q1_main.jsonl \
-  --out out/q1_main \
-  --jobs 4 \
-  --device cpu \
-  --log_mode summary \
-  --max_tasks_per_child 50 \
-  --torch_threads 1
+source .venv-aaf-cuda/bin/activate
+bash tools/run_confirmation.sh all "$PWD/results/confirmation"
 ```
 
-3) Aggregate all runs
+The portable launcher verifies sources, runs tests, trains/evaluates, validates trajectories, performs the fixed analysis, and creates `results/confirmation.review.zip` plus its SHA-256 sidecar. `all` runs in the foreground; use your cluster's batch scheduler or a persistent terminal for long jobs. See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for individual stages, the earlier studies, output interpretation, and resume boundaries.
 
-```bash
-python -m scripts.aggregate --root out/q1_main
-```
+## Evidence and reproducibility boundaries
 
-4) Export LaTeX tables and figures
+The experimental unit is the independent policy-training seed. Episodes, configurations, agents, and time steps are not independent policy replications. The confirmation retains all 30 prespecified primary comparisons and applies one joint Holm correction. Fixed-proposal targeting gains are not online-learning gains, and reduced contact duration is not contact prevention.
 
-```bash
-python -m scripts.make_latex \
-  --summary out/q1_main/analysis/final_summary.csv \
-  --outdir out/q1_main/analysis/paper_assets
+**This Git release is code-only.** It includes protocols and analysis, not the original raw results, trained weights, or full physical traces. A fresh run generates those files. Reanalysis without retraining additionally requires the corresponding experiment-output archive supplied with the research materials; no public data DOI or download is asserted here. The compact review exporter retains every episode summary and policy, but only world index 0 of each physical trajectory. Keep the full output directory for all 32 worlds.
 
-python -m scripts.make_figures \
-  --summary out/q1_main/analysis/final_summary.csv \
-  --outdir out/q1_main/analysis/paper_assets
-```
+Neither a source hash nor passing tests proves field safety, signed execution, or bitwise agreement across different hardware. Do not resume an original IBM output directory with this public packaging snapshot: document-only sanitization changes its recorded source identity. Preserve the original run package for that purpose.
 
-5) Run paired significance tests (method vs baseline)
+## Reuse and citation
 
-```bash
-python -m scripts.stats \
-  --summary out/q1_main/analysis/final_summary.csv \
-  --outdir out/q1_main/analysis \
-  --method aaf_full \
-  --baseline ppo_only
-```
+The MIT license is in [`LICENSE.txt`](LICENSE.txt). [`CITATION.cff`](CITATION.cff) describes the software. In a camera-ready reproducibility statement, name this repository and the full release commit; identify data availability separately. No final journal DOI is invented.
 
----
-
-## Presets
-
-`make_grid` supports the following presets:
-
-- `paper_fast` — small sweep for CI / quick validation
-- `paper_full` — fuller sweep (matches the original “paper grid” style)
-- `q1_main` — strong, review-friendly main comparison across both tasks
-- `q1_ablation` — AAF ablations on a canonical slice
-- `q1_deep` — the **largest** sweep (both tasks × more baselines × 10 seeds)
-
-Example:
-
-```bash
-python -m scripts.make_grid --preset q1_deep --out configs/grid_q1_deep.jsonl
-```
-
----
-
-## Running large grids safely
-
-### 1) Don’t write huge outputs into cloud-synced folders
-
-Large sweeps create **tens of thousands of small files**.
-Avoid output paths under iCloud / Google Drive / Dropbox / OneDrive.
-
-Good:
-
-```bash
-python -m scripts.run_grid --grid configs/grid_q1_deep.jsonl --out ./out/q1_deep
-```
-
-Risky:
-
-```bash
-# Avoid: can trigger OS kills or extreme slowdown
-python -m scripts.run_grid --grid configs/grid_q1_deep.jsonl --out ~/Library/CloudStorage/...
-```
-
-### 2) Use `--log_mode summary` for sweeps
-
-`steps`/`full` logging can explode disk usage. For sweeps, keep:
-
-```bash
---log_mode summary
-```
-
-### 3) Resume is automatic
-
-`run_grid` is **resumable**. If a run folder already contains `summary.json`, it is skipped.
-So you can safely re-run the same command after interruption.
-
-### 4) Shard across machines (or multiple terminal sessions)
-
-You can split a grid by `--shard_id / --num_shards`.
-
-Example: 4 shards (run these in parallel on 4 machines):
-
-```bash
-python -m scripts.run_grid --grid configs/grid_q1_deep.jsonl --out out/q1_deep/shard_0 --jobs 1 --device cpu --shard_id 0 --num_shards 4
-python -m scripts.run_grid --grid configs/grid_q1_deep.jsonl --out out/q1_deep/shard_1 --jobs 1 --device cpu --shard_id 1 --num_shards 4
-python -m scripts.run_grid --grid configs/grid_q1_deep.jsonl --out out/q1_deep/shard_2 --jobs 1 --device cpu --shard_id 2 --num_shards 4
-python -m scripts.run_grid --grid configs/grid_q1_deep.jsonl --out out/q1_deep/shard_3 --jobs 1 --device cpu --shard_id 3 --num_shards 4
-```
-
-Then aggregate across *all shards*:
-
-```bash
-python -m scripts.aggregate --root out/q1_deep
-```
-
-Aggregation searches recursively for `summary.json`, so shard subdirectories are supported.
-
-### 5) Smoke-test a big grid first
-
-Before launching a large sweep, run a tiny subset:
-
-```bash
-python -m scripts.run_grid \
-  --grid configs/grid_q1_deep.jsonl \
-  --out out/q1_deep_smoke \
-  --jobs 1 \
-  --device cpu \
-  --max_runs 10
-```
-
----
-
-## Outputs (what gets written where)
-
-After `run_grid`:
-
-```
-out/<exp>/
-  <run_id_1>/
-    summary.json
-    config.json            # if --write_config
-    step_logs.csv          # if log_mode includes steps
-    agent_logs.csv         # if log_mode includes agents
-  <run_id_2>/
-    ...
-```
-
-After `aggregate`:
-
-```
-out/<exp>/analysis/
-  all_runs_flat.csv        # per-run flat table (one row per seed/run)
-  final_summary.csv        # grouped means/std/CI per config
-```
-
-After `make_latex` + `make_figures`:
-
-```
-out/<exp>/analysis/paper_assets/
-  table_main_results.tex
-  table_ablation.tex
-  fig_compromise_bar.png
-  fig_pareto_compromise_gini.png
-  fig_detection_delay_cdf.png   # only if byzantine runs exist
-```
-
----
-
-## If you are collaborating with the paper author
-
-When sharing results for incorporation into LaTeX, the most useful artifacts are:
-
-- `out/<exp>/analysis/final_summary.csv`
-- `out/<exp>/analysis/all_runs_flat.csv`
-- `out/<exp>/analysis/paper_assets/` (tables + figures)
-- `out/<exp>/analysis/stats_paired_tests.csv` (after running `scripts.stats`)
-
-Zipping just `out/<exp>/analysis/` is usually sufficient.
-
----
-
-## Troubleshooting
-
-### “error: the following arguments are required: --out”
-
-This repo uses `--out` (not `--out_dir`). Examples:
-
-```bash
-python -m scripts.make_grid --preset q1_deep --out configs/grid_q1_deep.jsonl
-python -m scripts.run_grid  --grid configs/grid_q1_deep.jsonl --out out/q1_deep
-```
-
-### `--device cuda` fails on macOS
-
-CUDA is not supported on Apple Silicon. Use:
-
-```bash
---device mps
-# or
---device cpu
-```
-
-### `zsh: killed` during a long sweep
-
-Common causes:
-
-- output directory is cloud-synced (massive file churn)
-- memory growth over many runs
-
-Mitigations:
-
-- write outputs to a local scratch path
-- add `--max_tasks_per_child 50`
-- keep `--log_mode summary`
-- shard the grid across multiple processes/machines
-
-### Multiprocessing warnings about leaked semaphores
-
-If you see `resource_tracker: leaked semaphore objects`, try:
-
-- `--max_tasks_per_child 20` (or 50)
-- reduce `--jobs`
-- or run `--jobs 1`
-
----
-
-## Citation
-
-If you use this codebase, please cite the associated AAF paper (add/update BibTeX once the journal version is final):
-
-```bibtex
-@article{alqithami2025aaf,
-  title   = {Adaptive Accountability in Networked Multi-Agent Systems: Tracing and Mitigating Emergent Norms at Scale},
-  author  = {Alqithami, Saad},
-  journal = {arXiv preprint},
-  year    = {2025}
-}
-```
-
----
-
-## License
-
-This repository is released under the **MIT License**. See `LICENSE`. 
+Tests and publication packaging do not initiate experiments on an external server. See [`docs/VALIDATION.md`](docs/VALIDATION.md) for the exact checks performed for this release.
